@@ -66,7 +66,7 @@ function dfr_rrss_languages() {
 }
 add_action('init', 'dfr_rrss_languages');
 
-// Register WPColorPicker
+// Register WPColorPicker and scripts
 function dfr_rrss_add_color_picker( $hook ) {
     if( is_admin() ) {
         // Add the color picker css file
@@ -76,6 +76,52 @@ function dfr_rrss_add_color_picker( $hook ) {
     }
 }
 add_action( 'admin_enqueue_scripts', 'dfr_rrss_add_color_picker' );
+
+// Custom admin Style
+function rrss_admin_styles() {
+    ?>
+    <style>
+        .dfr-panels{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+        }
+        @media screen and (min-width:1024px){
+            .dfr-panels{
+                flex-direction: row;
+                gap: 3em;
+            }
+            .panel-left{
+                flex-basis: 100%;
+                flex-grow: 2;
+            }
+            .panel-left form table tbody tr td input[type=text]{
+                min-width: 100%;
+            }
+            .panel-right{
+                flex-grow: 1;
+                margin-top: 50px;
+            }    
+        }
+        .css-example{
+            border: solid 1px #a3a3a3;
+            display: inline-block;
+            border-radius: 3px;
+            background-color: #bbbbbb;
+        }
+        .css-example pre{
+            padding: 1em 1.5em 1em 1.5em;
+            margin: 0;
+        }
+        .css-example pre code{
+            background: transparent;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <?php
+}
+add_action( 'admin_head', 'rrss_admin_styles' );
 
 //Hook to add menu item/page to WP backend example:
 add_action( 'admin_menu', 'dfr_rrss_admin_menu' );
@@ -93,15 +139,42 @@ function dfr_rrss_admin_menu(){
 }
 function dfr_rrss_page() {
     ?>
-    <div class="wrap dfr-panel">
-        <h2><?php _e( 'My social networks', 'dfr-rrss' ) ?></h2>
-        <form action="options.php" method="post">
-            <?php 
-            settings_fields( 'dfr_rrss_options' );
-            do_settings_sections( 'dfr-rrss' );
-            submit_button( __('Save Changes', 'dfr-rrss'), 'primary' );
-            ?>
-        </form>
+    <div class="wrap dfr-panels">
+        <div class="panel panel-left">
+            <h1><?php _e( 'My social networks', 'dfr-rrss' ) ?></h1>
+            <form action="options.php" method="post">
+                <?php 
+                settings_fields( 'dfr_rrss_options' );
+                do_settings_sections( 'dfr-rrss' );
+                submit_button( __('Save Changes', 'dfr-rrss'), 'primary' );
+                ?>
+            </form>
+        </div>
+        <div class="panel panel-right">
+            <h2><?php _e('Plugin usage', 'dfr-rrss'); ?></h2>
+            <p> <?php _e('Put the shortcode [rrss-links] in your pages, widgets or posts', 'dfr-rrss'); ?></p>
+            <h3><?php _e('Do you need a second icon bar with different colors for your theme design?', 'dfr-rrss'); ?></h3>
+            <p><?php _e('Simply add id="someid" to the shortcode like this:', 'dfr-rrss'); ?></p>
+            <p><?php _e(' [rrss-links id="secondary_icons"]', 'dfr-rrss'); ?></p>
+            <p><?php _e( 'Then you can add new CSS style', 'dfr-rrss') ?></p>
+            <p><?php _e( 'Example:', 'dfr-rrss') ?></p>
+            <div class="css-example">
+                <pre>
+                    <code>
+ul#secondary_icons li a svg path, 
+ul#secondary_icons li a svg circle, 
+ul#secondary_icons li a svg polygon{
+    fill: #d63638;
+}
+ul#secondary_icons li a:hover svg path,
+ul#secondary_icons li a:hover svg circle, 
+ul#secondary_icons li a:hover svg polygon{
+    fill: #2b73d5;
+}
+                    </code>
+                </pre>
+            </div>
+        </div>
     </div>
     <?php
 }
@@ -144,19 +217,8 @@ function dfr_rrss_admin_init () {
     function dfr_rrss_section_settings() {
         echo '<p>' . __('Configure the appearance of your social network icons', 'dfr-rrss') . '</p>';
     };
-
-    add_settings_section(
-        'dfr_rrss_usage',
-        __('Plugin usage', 'dfr-rrss'),
-        'dfr_rrss_section_usage',
-        'dfr-rrss'
-    );
-
-    function dfr_rrss_section_usage() {
-        echo '<p>' . __('Put the shortcode [rrss-links] in your pages, widgets or posts', 'dfr-rrss') . '</p>';
-    }
     
-    // Create our settings field for facebook url ( id, title, callback, page, section, args )
+    // Create our settings field for urls inputs ( id, title, callback, page, section, args )
     add_settings_field( 
         'dfr_rrss_facebook',
         __('Facebook URL', 'dfr-rrss'),
@@ -238,6 +300,7 @@ function dfr_rrss_admin_init () {
         'dfr_rrss_config'
     );
 
+    // Add number inputs fields
     add_settings_field(
         'dfr_rrss_icon_size',
         __('Icons size in pixels', 'dfr-rrss'),
@@ -254,7 +317,8 @@ function dfr_rrss_admin_init () {
         'dfr_rrss_config',
     );
 
-    // Display and fill the facebook url form field
+    // Display and fill the form fields
+
     function dfr_rrss_setting_facebook() {
         // Get option 'text string' value from the database if exist
         $options = get_option( 'dfr_rrss_links' );
@@ -268,7 +332,6 @@ function dfr_rrss_admin_init () {
     }
 
     function dfr_rrss_setting_instagram() {
-        // Get option 'text string' value from the database
         $options = get_option( 'dfr_rrss_links' );
         if( array_key_exists( 'instagram', $options ) ){
             $instagram = $options['instagram'];
@@ -279,7 +342,6 @@ function dfr_rrss_admin_init () {
     }
 
     function dfr_rrss_setting_twitter() {
-        // Get option 'text string' value from the database
         $options = get_option( 'dfr_rrss_links' );
         if( array_key_exists( 'twitter', $options ) ){
             $twitter = $options['twitter'];
@@ -290,7 +352,6 @@ function dfr_rrss_admin_init () {
     }
 
     function dfr_rrss_setting_tumblr() {
-        // Get option 'text string' value from the database
         $options = get_option( 'dfr_rrss_links' );
         if( array_key_exists( 'tumblr', $options ) ){
             $tumblr = $options['tumblr'];
@@ -301,7 +362,6 @@ function dfr_rrss_admin_init () {
     }
 
     function dfr_rrss_setting_linkedin() {
-        // Get option 'text string' value from the database
         $options = get_option( 'dfr_rrss_links' );
         if( array_key_exists( 'linkedin', $options ) ){
             $linkedin = $options['linkedin'];
@@ -312,7 +372,6 @@ function dfr_rrss_admin_init () {
     }
 
     function dfr_rrss_setting_pinterest() {
-        // Get option 'text string' value from the database
         $options = get_option( 'dfr_rrss_links' );
         if( array_key_exists( 'pinterest', $options ) ){
             $pinterest = $options['pinterest'];
@@ -323,7 +382,6 @@ function dfr_rrss_admin_init () {
     }
 
     function dfr_rrss_setting_youtube() {
-        // Get option 'text string' value from the database
         $options = get_option( 'dfr_rrss_links' );
         if( array_key_exists( 'youtube', $options ) ){
             $youtube = $options['youtube'];
@@ -334,7 +392,6 @@ function dfr_rrss_admin_init () {
     }
 
     function dfr_rrss_setting_tiktok() {
-        // Get option 'text string' value from the database
         $options = get_option( 'dfr_rrss_links' );
         if( array_key_exists( 'tiktok', $options ) ){
             $tiktok = $options['tiktok'];
@@ -345,7 +402,6 @@ function dfr_rrss_admin_init () {
     }
 
     function dfr_rrss_setting_telegram() {
-        // Get option 'text string' value from the database
         $options = get_option( 'dfr_rrss_links' );
         if( array_key_exists( 'telegram', $options ) ){
             $telegram = $options['telegram'];
@@ -517,6 +573,7 @@ function dfr_rrss_admin_init () {
             }
         }
 
+        // Sanitize with WP filters
         $valid['icon_color'] = sanitize_text_field( $input['icon_color'] );
         $valid['icon_color_hover'] = sanitize_text_field( $input['icon_color_hover'] );
         $valid['icon_size'] = sanitize_text_field( $input['icon_size'] );

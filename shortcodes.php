@@ -2,7 +2,13 @@
 
 $links = get_option( 'dfr_rrss_links' );
 
-function dfr_rrss_do_icons() {
+function dfr_rrss_do_icons( $atts ) {
+
+    // DEV Add ID if want more than one list
+
+    $shortcode_atts = shortcode_atts( array(
+        'id' => 'list-main'
+    ), $atts );
 
     global $links;
 
@@ -122,7 +128,7 @@ function dfr_rrss_do_icons() {
     
     // Create array with html markup for print data
     $rrss_list = '';
-    $rrss_list .= '<ul class="social-links">';
+    $rrss_list .= '<ul id="' . $shortcode_atts['id'] . '" class="social-links">';
     foreach ($rrss as $rrss_link) {
         if(isset($rrss_link['link'])& $rrss_link !== null ){
             $rrss_list.='<li><a rel="nofollow" href="'.$rrss_link['link'].'" target="_blank">' . $rrss_link['icon'] . '</a></li>';

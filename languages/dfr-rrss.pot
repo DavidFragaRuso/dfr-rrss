@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Base Plugin\n"
-"POT-Creation-Date: 2022-10-20 16:39+0200\n"
+"POT-Creation-Date: 2022-10-28 12:30+0200\n"
 "PO-Revision-Date: 2022-10-20 15:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: david.fraga.bcn@gmail.com\n"
@@ -11,15 +11,119 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: main.php:96
-msgid "DFR - WP SocialNetworks"
+#: dfr-rrss.php:131
+msgid "DFR - WP Social Networks"
 msgstr ""
 
-#: main.php:97
+#: dfr-rrss.php:132
 msgid "My Social Networks"
+msgstr ""
+
+#: dfr-rrss.php:144
+msgid "My social networks"
+msgstr ""
+
+#: dfr-rrss.php:149
+msgid "Save Changes"
+msgstr ""
+
+#: dfr-rrss.php:154
+msgid "Plugin usage"
+msgstr ""
+
+#: dfr-rrss.php:155
+msgid "Put the shortcode [rrss-links] in your pages, widgets or posts"
+msgstr ""
+
+#: dfr-rrss.php:156
+msgid "Do you need a second icon bar with different colors for your theme design?"
+msgstr ""
+
+#: dfr-rrss.php:157
+msgid "Simply add id=\"someid\" to the shortcode like this:"
+msgstr ""
+
+#: dfr-rrss.php:158
+msgid " [rrss-links id=\"secondary_icons\"]"
+msgstr ""
+
+#: dfr-rrss.php:159
+msgid "Then you can add new CSS style"
+msgstr ""
+
+#: dfr-rrss.php:160
+msgid "Example:"
+msgstr ""
+
+#: dfr-rrss.php:200
+msgid "Links to your social networks"
+msgstr ""
+
+#: dfr-rrss.php:207
+msgid "Enter the links to your social networks here"
+msgstr ""
+
+#: dfr-rrss.php:212
+msgid "Icon configuration"
+msgstr ""
+
+#: dfr-rrss.php:218
+msgid "Configure the appearance of your social network icons"
+msgstr ""
+
+#: dfr-rrss.php:224
+msgid "Facebook URL"
+msgstr ""
+
+#: dfr-rrss.php:231
+msgid "Instragram URL"
+msgstr ""
+
+#: dfr-rrss.php:238
+msgid "Twitter URL"
+msgstr ""
+
+#: dfr-rrss.php:245
+msgid "Tumblr URL"
+msgstr ""
+
+#: dfr-rrss.php:252
+msgid "Linkedin URL"
+msgstr ""
+
+#: dfr-rrss.php:259
+msgid "Pinterest URL"
+msgstr ""
+
+#: dfr-rrss.php:266
+msgid "YouTube URL"
+msgstr ""
+
+#: dfr-rrss.php:273
+msgid "Tik Tok URL"
+msgstr ""
+
+#: dfr-rrss.php:280
+msgid "Telegram URL"
+msgstr ""
+
+#: dfr-rrss.php:289
+msgid "Icons color"
+msgstr ""
+
+#: dfr-rrss.php:297
+msgid "Icons color on Hover"
+msgstr ""
+
+#: dfr-rrss.php:306
+msgid "Icons size in pixels"
+msgstr ""
+
+#: dfr-rrss.php:314
+msgid "Margin between Icons in pixels"
 msgstr ""
